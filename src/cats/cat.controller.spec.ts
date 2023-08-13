@@ -1,14 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { CatController } from './cat.controller'
-import { CatService } from "./cat.service"
+import { CatModule } from "./cat.module"
 
 describe('CatController', () => {
   let catController: CatController
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      controllers: [CatController],
-      providers: [CatService],
+			imports: [CatModule],
     }).compile()
 
     catController = app.get<CatController>(CatController)
