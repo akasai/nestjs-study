@@ -66,3 +66,24 @@ describe('AppController (e2e)', () => {
       .expect('This action return 202')
   })
 })
+
+describe('CatController (e2e)', () => {
+  let app: INestApplication
+
+  beforeEach(async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
+    }).compile()
+
+    app = moduleFixture.createNestApplication()
+    await app.init()
+  })
+
+  it('/cats (POST)', () => {
+    return request(app.getHttpServer())
+      .post('/cats')
+      .send()
+      .expect(201)
+      .expect('cat created')
+  })
+})
