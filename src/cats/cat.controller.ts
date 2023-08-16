@@ -1,11 +1,16 @@
-import { Controller, Post } from '@nestjs/common'
+import { Controller, Get, Post } from '@nestjs/common'
 import { CatService } from './cat.service'
 
 @Controller('cats')
 export class CatController {
   constructor(private catService: CatService) {}
 
-  @Post('')
+  @Get()
+  getCatList() {
+    return []
+  }
+
+  @Post()
   createCat() {
     return this.catService.createCat()
   }

@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common'
+import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common"
+import { DiMiddleware } from "../middleware"
 import { CatController } from './cat.controller'
 import { CatService } from './cat.service'
 
@@ -16,7 +17,14 @@ import { CatService } from './cat.service'
   controllers: [CatController],
   providers: [CatService],
 })
-export class CatModule {
-  constructor(private catService: CatService) { // inject 가능
+export class CatModule implements NestModule {
+  constructor(private catService: CatService) {
+    // inject 가능
+  }
+
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(DiMiddleware) // DiMiddleware에서 CatService를 inject하고 있다.
+      .forRoutes('*')
   }
 }

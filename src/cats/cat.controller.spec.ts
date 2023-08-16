@@ -14,6 +14,10 @@ describe('CatController', () => {
   })
 
 	describe('root', () => {
+		it('should return "[]"', () => {
+			expect(catController.getCatList()).toStrictEqual([])
+		})
+
 		it('should return "cat created"', () => {
 			expect(catController.createCat()).toBe('cat created')
 		})

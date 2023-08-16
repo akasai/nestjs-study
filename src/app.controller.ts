@@ -59,7 +59,7 @@ export class AppController {
   }
 
   // 매개변수가 있는 라우트는 정적라우트 뒤에 선언해야한다.
-  @Get('/:id')
+  @Get('/:id(\\d+)') // regex 가능
   getParameter(@Param('id') id: number): string {
     return `${id} hi?`
   }

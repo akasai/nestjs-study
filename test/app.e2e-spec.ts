@@ -79,6 +79,13 @@ describe('CatController (e2e)', () => {
     await app.init()
   })
 
+  it('/cats (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/cats')
+      .expect(200)
+      .expect([])
+  })
+
   it('/cats (POST)', () => {
     return request(app.getHttpServer())
       .post('/cats')
