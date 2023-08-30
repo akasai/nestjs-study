@@ -1,4 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common"
+import { APP_FILTER } from "@nestjs/core"
+import { CatExceptionFilter } from "../filters"
 import { DiMiddleware } from "../middleware"
 import { CatController } from './cat.controller'
 import { CatService } from './cat.service'
@@ -15,7 +17,17 @@ import { CatService } from './cat.service'
 // 한번만 생성된다.
 @Module({
   controllers: [CatController],
-  providers: [CatService],
+  providers: [
+    CatService,
+    // {
+    //   /**
+    //    * AppModule이 아니라 특정 모듈에서 아래와 같이 필터를 적용한다면
+    //    * 해당 Module에 연관된 부분에서 필터를 제한할 수 있다.
+    //    */
+    //   provide: APP_FILTER,
+    //   useClass: CatExceptionFilter
+    // }
+  ],
 })
 export class CatModule implements NestModule {
   constructor(private catService: CatService) {

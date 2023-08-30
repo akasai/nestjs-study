@@ -1,4 +1,5 @@
 import { Controller, Get, Post } from '@nestjs/common'
+import { CustomException } from "../exceptions"
 import { CatService } from './cat.service'
 
 @Controller('cats')
@@ -8,6 +9,11 @@ export class CatController {
   @Get()
   getCatList() {
     return []
+  }
+
+  @Get('/except')
+  getCatException() {
+    throw new CustomException()
   }
 
   @Post()
