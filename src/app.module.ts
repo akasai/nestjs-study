@@ -9,12 +9,13 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { CatController } from './cats/cat.controller'
 import { CatModule } from './cats/cat.module'
+import { DogModule } from "./dogs/dog.module"
 import { ExceptModule } from "./except/except.module"
 import { AllExceptionsFilter } from "./filters/all.exception.filter"
 import { LoggerMiddleware, testMiddleware } from "./middleware"
 
 @Module({
-  imports: [CatModule, ExceptModule],
+  imports: [CatModule, ExceptModule, DogModule],
   controllers: [AppController],
   providers: [
     AppService,
