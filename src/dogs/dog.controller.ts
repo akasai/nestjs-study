@@ -3,15 +3,22 @@ import {
   Get,
   HttpStatus,
   Param,
-  ParseIntPipe, ParseUUIDPipe, Query
-} from "@nestjs/common"
+  ParseIntPipe,
+  ParseUUIDPipe,
+  Query,
+  UseGuards,
+} from '@nestjs/common'
+import { Roles } from "../decorators/roles.decorator"
+import { RolesGuard } from '../guards'
 
+/**
+ * 다른 객체들과 마찬가지로 controller-scoped, method-scoped, or global-scoped 가 가능.
+ */
+@UseGuards(RolesGuard)
 @Controller('dogs')
 export class DogController {
   @Get()
-  async find(
-    @Query('id', ParseIntPipe) id: number
-  ) {
+  async find(@Query('id', ParseIntPipe) id: number) {
     return id
   }
 
@@ -19,13 +26,16 @@ export class DogController {
    * ParseIntPipe class를 그대로 주입하면 프레임워크에서 인스턴스화 시킵니다.
    * @param id
    */
+  @Roles(['admin'])
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return id
   }
 
   @Get(':uuid')
-  async findUUID(@Param('uuid', new ParseUUIDPipe({ version: '3' })) uuid: number) {
+  async findUUID(
+    @Param('uuid', new ParseUUIDPipe({ version: '3' })) uuid: number,
+  ) {
     return uuid
   }
 
